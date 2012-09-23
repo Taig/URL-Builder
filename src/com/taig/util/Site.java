@@ -76,6 +76,11 @@ public class Site
 	private List<String>		paths		= new ArrayList<String>( 3 );
 
 	/**
+	 * The Site's URL-file (e.g. "home.html").
+	 */
+	private String				file;
+
+	/**
 	 * The Site's URL-parameters (e.g. "<id, 3>" or "<session, ASDF>").
 	 */
 	private Map<String, String>	parameters	= new LinkedHashMap<String, String>( 3 );
@@ -303,6 +308,28 @@ public class Site
 	}
 
 	/**
+	 * Retrieve the Site's URL-file (e.g. "home.html").
+	 * 
+	 * @return
+	 */
+	public String getFile()
+	{
+		return file;
+	}
+
+	/**
+	 * Set the Site's URL-file (e.g. "home.html").
+	 * 
+	 * @param file
+	 * @return
+	 */
+	public Site setFile( String file )
+	{
+		this.file = file;
+		return this;
+	}
+
+	/**
 	 * Retrieve the Site's URL-parameters.
 	 * 
 	 * @return The Site's URL-parameters (e.g. "<id, 3>" or "<session, ASDF>").
@@ -426,6 +453,11 @@ public class Site
 		for( String path : paths )
 		{
 			urlBuilder.append( "/" ).append( path );
+		}
+		
+		if( file != null )
+		{
+			urlBuilder.append( file );
 		}
 
 		if( !parameters.isEmpty() )
