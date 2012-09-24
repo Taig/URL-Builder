@@ -454,10 +454,10 @@ public class Site
 		{
 			urlBuilder.append( "/" ).append( path );
 		}
-		
+
 		if( file != null )
 		{
-			urlBuilder.append( file );
+			urlBuilder.append( "/" ).append( file );
 		}
 
 		if( !parameters.isEmpty() )
