@@ -362,7 +362,7 @@ public class Site
 	 *            The param's value.
 	 * @return Current instance of {@link Site} to allow method chaining.
 	 */
-	public Site addParameter( String key, String value )
+	public Site putParameter( String key, String value )
 	{
 		this.parameters.put( key, value );
 		return this;
