@@ -424,47 +424,47 @@ public class Site
 	@Override
 	public String toString()
 	{
-		StringBuilder urlBuilder = new StringBuilder( scheme.toString() ).append( "://" );
+		StringBuilder urlBuilder = new StringBuilder( getScheme().toString() ).append( "://" );
 
-		if( username != null )
+		if( getUsername() != null )
 		{
-			urlBuilder.append( username );
+			urlBuilder.append( getUsername() );
 
-			if( password != null )
+			if( getPassword() != null )
 			{
-				urlBuilder.append( ":" ).append( password );
+				urlBuilder.append( ":" ).append( getPassword() );
 			}
 
 			urlBuilder.append( "@" );
 		}
 
-		for( String subdomain : subdomains )
+		for( String subdomain : getSubdomains() )
 		{
 			urlBuilder.append( subdomain ).append( "." );
 		}
 
-		urlBuilder.append( host );
+		urlBuilder.append( getHost() );
 
-		if( port != 80 )
+		if( getPort() != 80 )
 		{
-			urlBuilder.append( ":" ).append( port );
+			urlBuilder.append( ":" ).append( getPort() );
 		}
 
-		for( String path : paths )
+		for( String path : getPaths() )
 		{
 			urlBuilder.append( "/" ).append( path );
 		}
 
-		if( file != null )
+		if( getFile() != null )
 		{
-			urlBuilder.append( "/" ).append( file );
+			urlBuilder.append( "/" ).append( getFile() );
 		}
 
-		if( !parameters.isEmpty() )
+		if( !getParameters().isEmpty() )
 		{
 			StringBuilder parametersBuilder = new StringBuilder();
 
-			for( Entry<String, String> entry : parameters.entrySet() )
+			for( Entry<String, String> entry : getParameters().entrySet() )
 			{
 				parametersBuilder.append( "&" );
 				parametersBuilder.append( encode( entry.getKey() ) ).append( "=" ).append( encode( entry.getValue() ) );
@@ -473,9 +473,9 @@ public class Site
 			urlBuilder.append( "?" ).append( parametersBuilder.deleteCharAt( 0 ) );
 		}
 
-		if( fragement != null )
+		if( getFragment() != null )
 		{
-			urlBuilder.append( "#" ).append( encode( fragement ) );
+			urlBuilder.append( "#" ).append( encode( getFragment() ) );
 		}
 
 		return urlBuilder.toString();
