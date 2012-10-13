@@ -340,6 +340,18 @@ public class Site
 	}
 
 	/**
+	 * Retrieve the Site's URL-parameter for the given key.
+	 * 
+	 * @param key
+	 *            An URL-parameter.
+	 * @return
+	 */
+	public String getParameter( String key )
+	{
+		return parameters.get( key );
+	}
+
+	/**
 	 * Set the Site's URL-parameters.
 	 * 
 	 * @param params
