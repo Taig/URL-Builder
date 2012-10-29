@@ -492,4 +492,17 @@ public class Site
 
 		return urlBuilder.toString();
 	}
+
+	@Override
+	public boolean equals( Object object )
+	{
+		if( object != null && object instanceof Site )
+		{
+			Site site = (Site) object;
+			
+			return site.toString().equals( this.toString() );
+		}
+		
+		return false;
+	}
 }
