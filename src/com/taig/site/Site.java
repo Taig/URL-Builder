@@ -1,4 +1,4 @@
-package com.taig.util;
+package com.taig.site;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
