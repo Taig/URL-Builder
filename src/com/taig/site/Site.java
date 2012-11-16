@@ -42,7 +42,7 @@ public class Site
 	/**
 	 * The Site's URL-scheme (e.g. "http" or "https").
 	 */
-	private Scheme				scheme;
+	private String				scheme;
 
 	/**
 	 * The Site's URL-username.
@@ -105,6 +105,56 @@ public class Site
 	}
 
 	/**
+	 * Construct a Site from an {@link URL}.
+	 * 
+	 * @param url
+	 */
+	public Site( URL url )
+	{
+		setScheme( url.getProtocol() );
+
+		String[] hosts = url.getHost().split( "." );
+		int i;
+		for( i = 0; i < hosts.length - 2; i++ )
+		{
+			addSubdomain( hosts[i] );
+		}
+
+		String[] authentification = new String[2];
+		authentification = url.getUserInfo().split( ":", 2 );
+		setAuthentification( authentification[0], authentification[1] );
+
+		setHost( hosts[i] + hosts[i + 1] );
+
+		setPort( url.getPort() > 0 ? url.getPort() : url.getDefaultPort() );
+
+		String[] paths = url.getPath().split( "/" );
+		for( i = 0; i < paths.length - 1; i++ )
+		{
+			addPath( paths[i] );
+		}
+
+		if( paths[i].contains( "." ) )
+		{
+			setFile( paths[i] );
+		}
+		else
+		{
+			addPath( paths[i] );
+		}
+
+		String[] parameters = url.getQuery().split( "&" );
+		String[] parameter = new String[2];
+		for( i = 0; i < parameters.length; i++ )
+		{
+			parameter = parameters[i].split( "=", 2 );
+			putParameter( parameter[0], parameter[1] );
+		}
+
+		setFragment( url.getRef() );
+	}
+
+	/**
 	 * Retrieve the charset that is used for encoding.
 	 * 
 	 * @return
@@ -132,7 +182,7 @@ public class Site
 	 * 
 	 * @return The Site's URL-scheme (e.g. "http" or "https").
 	 */
-	public Scheme getScheme()
+	public String getScheme()
 	{
 		return scheme;
 	}
@@ -144,9 +194,22 @@ public class Site
 	 *            An URL-scheme (e.g. "http" or "https").
 	 * @return Current instance of {@link Site} to allow method chaining.
 	 */
-	public Site setScheme( Scheme scheme )
+	public Site setScheme( String scheme )
 	{
 		this.scheme = scheme;
+		return this;
+	}
+
+	/**
+	 * Set the Site's URL-scheme.
+	 * 
+	 * @param scheme
+	 *            An URL-{@link Scheme} (e.g. "http" or "https").
+	 * @return Current instance of {@link Site} to allow method chaining.
+	 */
+	public Site setScheme( Scheme scheme )
+	{
+		this.scheme = scheme.toString();
 		return this;
 	}
 
@@ -498,10 +561,10 @@ public class Site
 		if( object != null && object instanceof Site )
 		{
 			Site site = (Site) object;
-			
+
 			return site.toString().equals( this.toString() );
 		}
-		
+
 		return false;
 	}
 }
