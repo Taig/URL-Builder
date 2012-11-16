@@ -155,6 +155,25 @@ public class Site
 	}
 
 	/**
+	 * Construct a copy of the given {@link Site}.
+	 * 
+	 * @param site
+	 */
+	public Site( Site site )
+	{
+		setCharset( site.getCharset() );
+		setScheme( site.getScheme() );
+		setAuthentification( site.getUsername(), site.getPassword() );
+		getSubdomains().addAll( site.getSubdomains() );
+		setHost( site.getHost() );
+		setPort( site.getPort() );
+		getPaths().addAll( site.getPaths() );
+		setFile( site.getFile() );
+		getParameters().putAll( site.getParameters() );
+		setFragment( site.getFragment() );
+	}
+
+	/**
 	 * Retrieve the charset that is used for encoding.
 	 * 
 	 * @return
