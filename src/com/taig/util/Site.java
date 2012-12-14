@@ -5,7 +5,7 @@
  * To Public License, Version 2, as published by Sam Hocevar. See
  * http://sam.zoy.org/wtfpl/COPYING for more details.
  */
-package com.taig.site;
+package com.taig.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -18,8 +18,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /**
- * A Site is a programmatic representation of a Website, managing its basic meta information to provide simple HTTP
- * access.
+ * A Site is a programmatic representation of a website, managing its basic meta information to provide simple HTTP access.
  */
 public class Site
 {
@@ -224,24 +223,24 @@ public class Site
 	/**
 	 * Set the Site's URL-scheme.
 	 *
-	 * @param scheme An URL-scheme (e.g. "http" or "https").
-	 * @return Current instance of {@link Site} to allow method chaining.
-	 */
-	public Site setScheme( String scheme )
-	{
-		this.scheme = scheme;
-		return this;
-	}
-
-	/**
-	 * Set the Site's URL-scheme.
-	 *
 	 * @param scheme An URL-{@link Scheme} (e.g. "http" or "https").
 	 * @return Current instance of {@link Site} to allow method chaining.
 	 */
 	public Site setScheme( Scheme scheme )
 	{
 		this.scheme = scheme.getProtocol();
+		return this;
+	}
+
+	/**
+	 * Set the Site's URL-scheme.
+	 *
+	 * @param scheme An URL-scheme (e.g. "http" or "https").
+	 * @return Current instance of {@link Site} to allow method chaining.
+	 */
+	public Site setScheme( String scheme )
+	{
+		this.scheme = scheme;
 		return this;
 	}
 
@@ -447,8 +446,8 @@ public class Site
 	}
 
 	/**
-	 * Add a parameter (<key, value>) to the Site's URL (e.g. "<id, 3>" or "<session, ASDF>"). If the key already exists it
-	 * will be overridden.
+	 * Add a parameter (<key, value>) to the Site's URL (e.g. "<id, 3>" or "<session, ASDF>"). If the key already exists it will be
+	 * overridden.
 	 *
 	 * @param key   The parameter's key.
 	 * @param value The parameter's value.
