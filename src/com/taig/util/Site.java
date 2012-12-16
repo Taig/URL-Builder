@@ -111,10 +111,21 @@ public class Site
 	 * @param scheme The Site's URL-scheme (e.g. "http" or "https").
 	 * @param host   The Site's URL-host (e.g. "localhost" or "example").
 	 */
+	public Site( String scheme, String host )
+	{
+		this.scheme = scheme;
+		this.host = host;
+	}
+
+	/**
+	 * Construct a Site with a minimum of information (e.g. "http://example.org").
+	 *
+	 * @param scheme The Site's URL-scheme (e.g. {@link Scheme#HTTP} or {@link Scheme#HTTPS}).
+	 * @param host   The Site's URL-host (e.g. "localhost" or "example").
+	 */
 	public Site( Scheme scheme, String host )
 	{
-		setScheme( scheme );
-		setHost( host );
+		this( scheme.protocol, host );
 	}
 
 	/**
@@ -124,7 +135,7 @@ public class Site
 	 */
 	public Site( URL url )
 	{
-		setScheme( url.getProtocol() );
+		this.scheme = url.getProtocol();
 
 		String[] hosts = url.getHost().split( "." );
 
@@ -132,30 +143,32 @@ public class Site
 
 		for( i = 0; i < hosts.length - 2; i++ )
 		{
-			addSubdomain( hosts[i] );
+			subdomains.add( hosts[i] );
 		}
 
 		String[] authentication = url.getUserInfo().split( ":", 2 );
-		setAuthentication( authentication[0], authentication[1] );
 
-		setHost( hosts[i] + hosts[i + 1] );
+		this.username = authentication[0];
+		this.password = authentication[1];
 
-		setPort( url.getPort() > 0 ? url.getPort() : url.getDefaultPort() );
+		this.host = hosts[i] + hosts[i + 1];
+
+		this.port = url.getPort() > 0 ? url.getPort() : url.getDefaultPort();
 
 		String[] paths = url.getPath().split( "/" );
 
 		for( i = 0; i < paths.length - 1; i++ )
 		{
-			addPath( paths[i] );
+			this.paths.add( paths[i] );
 		}
 
 		if( paths[i].contains( "." ) )
 		{
-			setFile( paths[i] );
+			this.file = paths[i];
 		}
 		else
 		{
-			addPath( paths[i] );
+			this.paths.add( paths[i] );
 		}
 
 		String[] parameters = url.getQuery().split( "&" );
@@ -163,10 +176,10 @@ public class Site
 		for( i = 0; i < parameters.length; i++ )
 		{
 			String[] parameter = parameters[i].split( "=", 2 );
-			putParameter( parameter[0], parameter[1] );
+			this.parameters.put( parameter[0], parameter[1] );
 		}
 
-		setFragment( url.getRef() );
+		this.fragment = url.getRef();
 	}
 
 	/**
@@ -176,16 +189,16 @@ public class Site
 	 */
 	public Site( Site site )
 	{
-		setCharset( site.getCharset() );
-		setScheme( site.getScheme() );
-		setAuthentication( site.getUsername(), site.getPassword() );
-		getSubdomains().addAll( site.getSubdomains() );
-		setHost( site.getHost() );
-		setPort( site.getPort() );
-		getPaths().addAll( site.getPaths() );
-		setFile( site.getFile() );
-		getParameters().putAll( site.getParameters() );
-		setFragment( site.getFragment() );
+		this( site.scheme, site.host );
+		this.charset = site.charset;
+		this.username = site.username;
+		this.password = site.password;
+		this.subdomains.addAll( site.subdomains );
+		this.port = site.port;
+		this.paths.addAll( site.paths );
+		this.file = site.file;
+		this.parameters.putAll( site.parameters );
+		this.fragment = site.fragment;
 	}
 
 	/**
@@ -279,7 +292,7 @@ public class Site
 	}
 
 	/**
-	 * Retrieve the Site's URL-subdomains
+	 * Retrieve the Site's URL-subdomains.
 	 *
 	 * @return The Site's URL-subdomains (e.g. "www").
 	 */
@@ -525,47 +538,47 @@ public class Site
 	@Override
 	public String toString()
 	{
-		StringBuilder urlBuilder = new StringBuilder( getScheme().toString() ).append( "://" );
+		StringBuilder urlBuilder = new StringBuilder( scheme ).append( "://" );
 
-		if( getUsername() != null )
+		if( username != null )
 		{
-			urlBuilder.append( getUsername() );
+			urlBuilder.append( username );
 
-			if( getPassword() != null )
+			if( password != null )
 			{
-				urlBuilder.append( ":" ).append( getPassword() );
+				urlBuilder.append( ":" ).append( password );
 			}
 
 			urlBuilder.append( "@" );
 		}
 
-		for( String subdomain : getSubdomains() )
+		for( String subdomain : subdomains )
 		{
 			urlBuilder.append( subdomain ).append( "." );
 		}
 
-		urlBuilder.append( getHost() );
+		urlBuilder.append( host );
 
-		if( getPort() != 80 )
+		if( port != 80 )
 		{
-			urlBuilder.append( ":" ).append( getPort() );
+			urlBuilder.append( ":" ).append( port );
 		}
 
-		for( String path : getPaths() )
+		for( String path : paths )
 		{
 			urlBuilder.append( "/" ).append( path );
 		}
 
-		if( getFile() != null )
+		if( file != null )
 		{
-			urlBuilder.append( "/" ).append( getFile() );
+			urlBuilder.append( "/" ).append( file );
 		}
 
-		if( !getParameters().isEmpty() )
+		if( !parameters.isEmpty() )
 		{
 			StringBuilder parametersBuilder = new StringBuilder();
 
-			for( Entry<String, String> entry : getParameters().entrySet() )
+			for( Entry<String, String> entry : parameters.entrySet() )
 			{
 				parametersBuilder.append( "&" );
 				parametersBuilder.append( encode( entry.getKey() ) ).append( "=" ).append( encode( entry.getValue() ) );
@@ -574,9 +587,9 @@ public class Site
 			urlBuilder.append( "?" ).append( parametersBuilder.deleteCharAt( 0 ) );
 		}
 
-		if( getFragment() != null )
+		if( fragment != null )
 		{
-			urlBuilder.append( "#" ).append( encode( getFragment() ) );
+			urlBuilder.append( "#" ).append( encode( fragment ) );
 		}
 
 		return urlBuilder.toString();
