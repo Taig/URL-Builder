@@ -223,24 +223,24 @@ public class Site
 	/**
 	 * Set the Site's URL-scheme.
 	 *
-	 * @param scheme An URL-{@link Scheme} (e.g. "http" or "https").
-	 * @return Current instance of {@link Site} to allow method chaining.
-	 */
-	public Site setScheme( Scheme scheme )
-	{
-		this.scheme = scheme.getProtocol();
-		return this;
-	}
-
-	/**
-	 * Set the Site's URL-scheme.
-	 *
 	 * @param scheme An URL-scheme (e.g. "http" or "https").
 	 * @return Current instance of {@link Site} to allow method chaining.
 	 */
 	public Site setScheme( String scheme )
 	{
 		this.scheme = scheme;
+		return this;
+	}
+
+	/**
+	 * Set the Site's URL-scheme.
+	 *
+	 * @param scheme An URL-{@link Scheme} (e.g. "http" or "https").
+	 * @return Current instance of {@link Site} to allow method chaining.
+	 */
+	public Site setScheme( Scheme scheme )
+	{
+		this.scheme = scheme.getProtocol();
 		return this;
 	}
 
