@@ -129,6 +129,17 @@ public class Site
 	}
 
 	/**
+	 * Construct a Site from a {@link String}.
+	 *
+	 * @param url An URL; represented as a {@link String}.
+	 * @throws MalformedURLException If the given URL-String is not a valid URL.
+	 */
+	public Site( String url ) throws MalformedURLException
+	{
+		this( new URL( url ) );
+	}
+
+	/**
 	 * Construct a Site from an {@link URL}.
 	 *
 	 * @param url A valid {@link URL} object.
@@ -236,24 +247,24 @@ public class Site
 	/**
 	 * Set the Site's URL-scheme.
 	 *
-	 * @param scheme An URL-scheme (e.g. "http" or "https").
-	 * @return Current instance of {@link Site} to allow method chaining.
-	 */
-	public Site setScheme( String scheme )
-	{
-		this.scheme = scheme;
-		return this;
-	}
-
-	/**
-	 * Set the Site's URL-scheme.
-	 *
 	 * @param scheme An URL-{@link Scheme} (e.g. "http" or "https").
 	 * @return Current instance of {@link Site} to allow method chaining.
 	 */
 	public Site setScheme( Scheme scheme )
 	{
 		this.scheme = scheme.getProtocol();
+		return this;
+	}
+
+	/**
+	 * Set the Site's URL-scheme.
+	 *
+	 * @param scheme An URL-scheme (e.g. "http" or "https").
+	 * @return Current instance of {@link Site} to allow method chaining.
+	 */
+	public Site setScheme( String scheme )
+	{
+		this.scheme = scheme;
 		return this;
 	}
 
