@@ -499,9 +499,16 @@ public class Site
 	 *
 	 * @return A fully qualified URL (e.g. "http://www.example.org/home?user=taig").
 	 */
-	public URL getUrl() throws MalformedURLException
+	public URL getUrl()
 	{
-		return new URL( toString() );
+		try
+		{
+			return new URL( toString() );
+		}
+		catch( MalformedURLException exception )
+		{
+			return null;
+		}
 	}
 
 	/**
