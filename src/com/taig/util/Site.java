@@ -226,12 +226,10 @@ public class Site
 	 * Set the charset that is used for encoding.
 	 *
 	 * @param charset The charset that is used for encoding.
-	 * @return Current instance of {@link Site} to allow method chaining.
 	 */
-	public Site setCharset( String charset )
+	public void setCharset( String charset )
 	{
 		this.charset = charset;
-		return this;
 	}
 
 	/**
@@ -247,25 +245,21 @@ public class Site
 	/**
 	 * Set the Site's URL-scheme.
 	 *
-	 * @param scheme An URL-{@link Scheme} (e.g. "http" or "https").
-	 * @return Current instance of {@link Site} to allow method chaining.
+	 * @param scheme An URL-scheme (e.g. "http" or "https").
 	 */
-	public Site setScheme( Scheme scheme )
+	public void setScheme( String scheme )
 	{
-		this.scheme = scheme.getProtocol();
-		return this;
+		this.scheme = scheme;
 	}
 
 	/**
 	 * Set the Site's URL-scheme.
 	 *
-	 * @param scheme An URL-scheme (e.g. "http" or "https").
-	 * @return Current instance of {@link Site} to allow method chaining.
+	 * @param scheme An URL-{@link Scheme} (e.g. "http" or "https").
 	 */
-	public Site setScheme( String scheme )
+	public void setScheme( Scheme scheme )
 	{
-		this.scheme = scheme;
-		return this;
+		this.scheme = scheme.getProtocol();
 	}
 
 	/**
@@ -293,13 +287,11 @@ public class Site
 	 *
 	 * @param username The Site's URL-username (as from "http://user:pass@example.org").
 	 * @param password The Site's URL-password (as from "http://user:pass@example.org").
-	 * @return Current instance of {@link Site} to allow method chaining.
 	 */
-	public Site setAuthentication( String username, String password )
+	public void setAuthentication( String username, String password )
 	{
 		this.username = username;
 		this.password = password;
-		return this;
 	}
 
 	/**
@@ -316,24 +308,20 @@ public class Site
 	 * Set the Site's URL-subdomains.
 	 *
 	 * @param subdomains URL-subdomains (e.g. "www").
-	 * @return Current instance of {@link Site} to allow method chaining.
 	 */
-	public Site setSubdomains( List<String> subdomains )
+	public void setSubdomains( List<String> subdomains )
 	{
 		this.subdomains = subdomains;
-		return this;
 	}
 
 	/**
 	 * Add a subdomain to the Site's URL.
 	 *
 	 * @param subdomain An URL-subdomain (e.g. "www").
-	 * @return Current instance of {@link Site} to allow method chaining.
 	 */
-	public Site addSubdomain( String subdomain )
+	public void addSubdomain( String subdomain )
 	{
 		this.subdomains.add( subdomain );
-		return this;
 	}
 
 	/**
@@ -350,12 +338,10 @@ public class Site
 	 * Set the Site's URL-scheme.
 	 *
 	 * @param host An URL-host (e.g. "localhost" or "example.org").
-	 * @return Current instance of {@link Site} to allow method chaining.
 	 */
-	public Site setHost( String host )
+	public void setHost( String host )
 	{
 		this.host = host;
-		return this;
 	}
 
 	/**
@@ -372,12 +358,10 @@ public class Site
 	 * Set the Site's URL-port.
 	 *
 	 * @param port An URL-port (e.g. "80");
-	 * @return Current instance of {@link Site} to allow method chaining.
 	 */
-	public Site setPort( int port )
+	public void setPort( int port )
 	{
 		this.port = port;
-		return this;
 	}
 
 	/**
@@ -394,24 +378,20 @@ public class Site
 	 * Set the Site's URL-paths.
 	 *
 	 * @param paths URL-paths (e.g. "home" or ["user", "taig"]).
-	 * @return Current instance of {@link Site} to allow method chaining.
 	 */
-	public Site setPaths( List<String> paths )
+	public void setPaths( List<String> paths )
 	{
 		this.paths = paths;
-		return this;
 	}
 
 	/**
 	 * Add a path to the Site's URL.
 	 *
 	 * @param path An URL-path (e.g. "home" or ["user", "taig"]).
-	 * @return Current instance of {@link Site} to allow method chaining.
 	 */
-	public Site addPath( String path )
+	public void addPath( String path )
 	{
 		this.paths.add( path );
-		return this;
 	}
 
 	/**
@@ -428,12 +408,10 @@ public class Site
 	 * Set the Site's URL-file .
 	 *
 	 * @param file URL-file (e.g. "home.html").
-	 * @return Current instance of {@link Site} to allow method chaining.
 	 */
-	public Site setFile( String file )
+	public void setFile( String file )
 	{
 		this.file = file;
-		return this;
 	}
 
 	/**
@@ -450,12 +428,10 @@ public class Site
 	 * Set the Site's URL-parameters.
 	 *
 	 * @param params URL-parameters (e.g. "<id, 3>" or "<session, ASDF>").
-	 * @return Current instance of {@link Site} to allow method chaining.
 	 */
-	public Site setParameters( Map<String, String> params )
+	public void setParameters( Map<String, String> params )
 	{
 		this.parameters = params;
-		return this;
 	}
 
 	/**
@@ -475,12 +451,10 @@ public class Site
 	 *
 	 * @param key   The parameter's key.
 	 * @param value The parameter's value.
-	 * @return Current instance of {@link Site} to allow method chaining.
 	 */
-	public Site putParameter( String key, String value )
+	public void putParameter( String key, String value )
 	{
 		this.parameters.put( key, value );
-		return this;
 	}
 
 	/**
@@ -497,12 +471,10 @@ public class Site
 	 * Set the Site's URL-fragment.
 	 *
 	 * @param fragment An URL-fragment (e.g. "http://example.org#fragment").
-	 * @return Current instance of {@link Site} to allow method chaining.
 	 */
-	public Site setFragment( String fragment )
+	public void setFragment( String fragment )
 	{
 		this.fragment = fragment;
-		return this;
 	}
 
 	/**
